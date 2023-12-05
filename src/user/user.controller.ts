@@ -29,7 +29,7 @@ export class UserController {
     getAllUserByAssetID(@Body() asset_id: string[]): Promise<User[]> {
         return this.userService.getAllUserByAssetID(asset_id);
     }
-
+    
     @Patch('/exp')
     @UseAuthGuard()
     expUp(
