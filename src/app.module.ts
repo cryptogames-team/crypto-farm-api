@@ -4,6 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 import { typeORMconfig } from './configs/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { ItemModule } from './item/item.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MapModule } from './map/map.module';
 
 @Module({
   imports: [
@@ -21,8 +23,10 @@ import { ItemModule } from './item/item.module';
       entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: true
   }),
+  MongooseModule.forRoot('mongodb://221.148.25.234/nest'),
     UserModule,
-    ItemModule
+    ItemModule,
+    MapModule
   ],
 })
 export class AppModule {}
