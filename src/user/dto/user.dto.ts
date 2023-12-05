@@ -1,9 +1,9 @@
-import { IsNumber, IsString, MaxLength } from "class-validator";
+import { IsString, MaxLength } from "class-validator";
 
 export class UserDto {
     
-    @IsNumber()
-    asset_id: number;
+    @IsString()
+    asset_id: string;
 
     @IsString()
     @MaxLength(12)

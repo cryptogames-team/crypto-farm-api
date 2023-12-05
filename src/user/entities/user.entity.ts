@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { OwnItem } from "src/item/entities/own_item.entity";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity({name: 'user'})
 @Unique(['asset_id','user_name'])
@@ -7,7 +8,7 @@ export class User extends BaseEntity {
     user_id: number;
 
     @Column()
-    asset_id: number;
+    asset_id: string;
 
     @Column()
     user_name: string;
@@ -23,4 +24,7 @@ export class User extends BaseEntity {
 
     @Column()
     cft: number;
+
+    @OneToMany(type => OwnItem, cart => cart.user_id, {eager: false})
+    own_item: OwnItem[]
 }
