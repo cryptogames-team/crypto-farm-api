@@ -5,6 +5,8 @@ import { typeORMconfig } from './configs/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { ItemModule } from './item/item.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MapModule } from './map/map.module';
+
 
 @Module({
   imports: [
@@ -24,7 +26,8 @@ import { MongooseModule } from '@nestjs/mongoose';
   }),
   MongooseModule.forRoot('mongodb://localhost/nest'),
     UserModule,
-    ItemModule
+    ItemModule,
+    MapModule
   ],
 })
 export class AppModule {}
