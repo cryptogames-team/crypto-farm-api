@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import { User } from "src/user/entities/user.entity";
 import { AddItemDto } from "../dto/add_item.dto";
 import { BuyItemDto } from "../dto/buy_item.dto";
-import { InternalServerErrorException } from '@nestjs/common';
+import { InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { UseItemDto } from "../dto/use_item.dto";
 @CustomRepository(OwnItem)
 export class OwnItemRepository extends Repository<OwnItem>{
@@ -18,6 +18,8 @@ export class OwnItemRepository extends Repository<OwnItem>{
             .where('own_item.user_id = :user_id', { user_id })
             .getMany();
     }
+    
+
     
     async addItem(user: User, addItemDto: AddItemDto): Promise<string> {
         const { user_id } = user;

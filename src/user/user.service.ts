@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from './repositories/user.repository';
 import { User } from './entities/user.entity';
-import { UserDto } from './dto/user.dto';
+import { ExpDTO, UserDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class UserService {
         return this.userRepository.getUserByAssetID(asset_id);
     }
 
-    expUp(exp: number, user: User ): Promise<string> {
-        return this.userRepository.expUp(exp,user);
+    expUp(expDto: ExpDTO, user: User ): Promise<string> {
+        return this.userRepository.expUp(expDto,user);
     }
 }

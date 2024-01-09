@@ -1,7 +1,7 @@
 import { Injectable, ConflictException, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "../entities/user.entity";
-import { UserDto } from "../dto/user.dto";
+import { ExpDTO, UserDto } from "../dto/user.dto";
 import { CustomRepository } from "src/core/typeorm-ex.decorator";
 
 @CustomRepository(User)
@@ -61,9 +61,9 @@ export class UserRepository extends Repository<User>{
         }
     }
 
-    async expUp(exp: number, user: User): Promise<string> {
+    async expUp(expDto: ExpDTO, user: User): Promise<string> {
         const { user_name, user_id } = user;
-        
+        const { exp } = expDto;
         const get_user = await this.getUser(user_name);
         let user_level = get_user.level;
         let user_exp = get_user.exp;

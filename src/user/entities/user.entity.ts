@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Auction } from "src/auction/entities/auction.entity";
 import { Purchase } from "src/auction/entities/purchase.entity";
 import { OwnItem } from "src/item/entities/own_item.entity";
@@ -6,24 +7,32 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique }
 @Entity({name: 'user'})
 @Unique(['asset_id','user_name'])
 export class User extends BaseEntity {
+    
+    @ApiProperty()
     @PrimaryGeneratedColumn()
     user_id: number;
 
+    @ApiProperty()
     @Column()
     asset_id: string;
 
+    @ApiProperty()
     @Column()
     user_name: string;
 
+    @ApiProperty()
     @Column()
     level: number;
 
+    @ApiProperty()
     @Column()
     exp: number;
 
+    @ApiProperty()
     @Column()
     skill_point: number;
 
+    @ApiProperty()
     @Column()
     cft: number;
 
