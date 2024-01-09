@@ -47,7 +47,7 @@ export class UserRepository extends Repository<User>{
     async createUser(userDto: UserDto): Promise<User>{
         const {asset_id,user_name} = userDto;
 
-        const user = this.create({asset_id,user_name,level:1,exp:0,skill_point:0,cft:0})
+        const user = this.create({asset_id,user_name,level:1,exp:0,skill_point:0,cft:100})
 
         try{
             return await this.save(user);

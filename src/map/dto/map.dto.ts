@@ -2,11 +2,11 @@ import { IsString } from 'class-validator';
 
 export class MapDto {
   @IsString()
-  title: string;
+  name: string;
 
   @IsString()
-  desc: string;
+  age: number;
 
   @IsString()
-  password: string;
+  breed: string;
 }

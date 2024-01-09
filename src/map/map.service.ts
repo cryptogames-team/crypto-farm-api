@@ -18,4 +18,8 @@ export class MapService {
         createdCat.save();
         return createdCat;
     }
+
+    async findAll(){
+        return this.mapModel.find().exec()
+    }
 }

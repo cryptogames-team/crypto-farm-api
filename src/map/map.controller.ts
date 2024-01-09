@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { MapService } from './map.service';
 import { MapDto } from './dto/map.dto';
 import { Map } from './schemas/map.schema';
@@ -12,5 +12,10 @@ export class MapController {
     @Post('/')
     Create(@Body()mapDto: MapDto) {
         return this.mapService.Create(mapDto);
+    }
+
+    @Get('/')
+    findAll(){
+        return this.mapService.findAll();
     }
 }
