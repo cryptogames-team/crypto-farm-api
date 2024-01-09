@@ -14,6 +14,7 @@ export class OwnItemRepository extends Repository<OwnItem>{
     
     async getMyItems(user_id: number): Promise<OwnItem[]> {
         return this.createQueryBuilder('own_item')
+            .leftJoinAndSelect('own_item.item_id','item')
             .where('own_item.user_id = :user_id', { user_id })
             .getMany();
     }
