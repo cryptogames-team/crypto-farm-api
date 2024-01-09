@@ -26,16 +26,16 @@ export class AuctionService {
         return this.auctionRepository.getAuctionByFilter(params);
     }
 
-    async cancelAuction(auction_id:number,user:User ){
-        const { user_id } = user;
-        const auction = await this.auctionRepository.getAuctionByIdNotUserJoin(+auction_id);
-        if(auction.user.user_id !== user_id) {
-            throw new ForbiddenException(`auction_id : ${auction.user.user_id} isn't your auction`);
-        }
-        const item_count = auction.item_count;
-        const addItemDto = { item_id : auction.item_id, item_count : auction.item_count};
-        await this.ownItemRepository.addItem(user,addItemDto);
-        await this.auctionRepository.cancelAuction(auction_id);
-        return 'cancel success';
-    }
+    // async cancelAuction(auction_id:number,user:User ){
+    //     const { user_id } = user;
+    //     const auction = await this.auctionRepository.getAuctionByIdNotUserJoin(+auction_id);
+    //     if(auction.user.user_id !== user_id) {
+    //         throw new ForbiddenException(`auction_id : ${auction.user.user_id} isn't your auction`);
+    //     }
+    //     const item_count = auction.item_count;
+    //     const addItemDto = { item_id : auction.item_id, item_count : auction.item_count};
+    //     await this.ownItemRepository.addItem(user,addItemDto);
+    //     await this.auctionRepository.cancelAuction(auction_id);
+    //     return 'cancel success';
+    // }
 }

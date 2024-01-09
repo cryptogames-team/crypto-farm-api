@@ -25,7 +25,7 @@ export class Auction extends BaseEntity {
     @ApiProperty()
     @ManyToOne(() => User, user => user.auction, { eager: true })
     @JoinColumn({ name: "user_id" })
-    user: User;
+    user_id: number;
 
     @ApiProperty()
     @ManyToOne(() => Item, item => item.auction,{eager: false})

@@ -35,15 +35,15 @@ export class AuctionController {
         return this.auctionService.getAuctionByFilter(params);
     }
 
-    @Delete('/:auction_id')
-    @UseAuthGuard()
-    @ApiBearerAuth('access-token')
-    @ApiOperation({summary: '경매장 취소', description: '경매장 취소'})
-    @ApiCreatedResponse({description:'성공하면 cancel success 보낼거임',schema: {example: 'cancel success'}})
-    cancelAuction(
-        @AuthUser()user: User,
-        @Param('auction_id')auction_id: number
-    ){
-        return this.auctionService.cancelAuction(auction_id,user);
-    }
+    // @Delete('/:auction_id')
+    // @UseAuthGuard()
+    // @ApiBearerAuth('access-token')
+    // @ApiOperation({summary: '경매장 취소', description: '경매장 취소'})
+    // @ApiCreatedResponse({description:'성공하면 cancel success 보낼거임',schema: {example: 'cancel success'}})
+    // cancelAuction(
+    //     @AuthUser()user: User,
+    //     @Param('auction_id')auction_id: number
+    // ){
+    //     return this.auctionService.cancelAuction(auction_id,user);
+    // }
 }
