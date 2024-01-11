@@ -4,7 +4,7 @@ import { ExpDTO, UserDto } from './dto/user.dto';
 import { User } from './entities/user.entity';
 import UseAuthGuard from './auth-guards/user-auth';
 import AuthUser from 'src/core/auth-user.decorator';
-import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 
 @Controller('user')
@@ -42,6 +42,7 @@ export class UserController {
     
     @Patch('/exp')
     @UseAuthGuard()
+    @ApiBearerAuth('access-token')
     @ApiOperation({summary: '경험치 올리기', description: '경험치 올려줌'})
     @ApiCreatedResponse({description:'성공하면 "exp up"이 결과값으로 갈거임'})
     expUp(

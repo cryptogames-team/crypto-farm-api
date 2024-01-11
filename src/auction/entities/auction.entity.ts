@@ -22,16 +22,16 @@ export class Auction extends BaseEntity {
     @Column()
     register_date: string;
 
-    @ApiProperty()
+    @ApiProperty({type : ()=> User})
     @ManyToOne(() => User, user => user.auction, { eager: true })
     @JoinColumn({ name: "user_id" })
-    user_id: number;
+    user: User;
 
-    @ApiProperty()
+    @ApiProperty({type : ()=> Item})
     @ManyToOne(() => Item, item => item.auction,{eager: false})
     @JoinColumn({name: "item_id"})
-    item_id: number;
+    item: Item;
 
-    @OneToMany(type => Purchase, purchase => purchase.auction_id, {eager: false})
+    @OneToMany(() => Purchase, purchase => purchase.auction, {eager: false})
     purchase: Purchase[];
 }

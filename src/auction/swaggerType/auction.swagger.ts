@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Item } from "src/item/entities/item.entity"
 import { User } from "src/user/entities/user.entity"
+import { Purchase } from "../entities/purchase.entity";
 
 export class AuctionType {
     @ApiProperty()
@@ -15,16 +16,24 @@ export class AuctionType {
     @ApiProperty()
     register_date: string;
 
-    @ApiProperty()
-    user_id: User;
+    @ApiProperty({type: () => User})
+    user: User;
 
-    @ApiProperty()
-    item_id: Item;
+    @ApiProperty({type: () => Item})
+    item: Item;
 }
 
 export class AuctionFilterType {
-    @ApiProperty({type:[AuctionType]})
+    @ApiProperty({type: () => [AuctionType]})
     auctions : AuctionType[];
+
+    @ApiProperty()
+    count: number;
+}
+
+export class PurchaseType {
+    @ApiProperty({type: () => [Purchase]})
+    result : Purchase[];
 
     @ApiProperty()
     count: number;

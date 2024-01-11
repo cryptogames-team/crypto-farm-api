@@ -14,12 +14,16 @@ export class OwnItem extends BaseEntity {
     item_count: number;
 
     @ApiProperty()
+    @Column()
+    item_index: number;
+
+    @ApiProperty()
     @ManyToOne(() => User, user => user.own_item, { eager: false })
     @JoinColumn({ name: "user_id" })
     user_id: number;
 
-    @ApiProperty()
-    @ManyToOne(() => Item, item => item.own_items,{eager: false})
+    @ApiProperty({type : ()=> Item})
+    @ManyToOne(() => Item, item => item.own_items)
     @JoinColumn({name: "item_id"})
-    item_id: number;
+    item: Item;
 }

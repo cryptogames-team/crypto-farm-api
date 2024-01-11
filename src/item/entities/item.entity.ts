@@ -34,9 +34,9 @@ export class Item extends BaseEntity {
     use_level: number;
 
     
-    @OneToMany(type => OwnItem, own_item => own_item.item_id, {eager: false})
+    @OneToMany(() => OwnItem, own_item => own_item.item, {eager: false})
     own_items: OwnItem[];
 
-    @OneToMany(type => Auction, auction => auction.item_id, {eager: false})
+    @OneToMany(() => Auction, auction => auction.item, {eager: false})
     auction: Auction[];
 }

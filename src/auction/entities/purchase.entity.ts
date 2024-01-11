@@ -14,17 +14,17 @@ export class Purchase extends BaseEntity {
     @Column()
     purchase_count: number;
 
-    @ApiProperty()
+    @ApiProperty({type : ()=> User})
     @ManyToOne(() => User, user => user.purchase, { eager: false })
     @JoinColumn({ name: "user_id" })
-    user_id: number;
+    user: User;
 
     @ApiProperty()
     @Column()
     purchase_date: string;
 
-    @ApiProperty()
+    @ApiProperty({type : ()=> Auction})
     @ManyToOne(() => Auction, auction => auction.purchase,{eager: false})
     @JoinColumn({name: "auction_id"})
-    auction_id: number;
+    auction: Auction;
 }

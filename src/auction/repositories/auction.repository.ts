@@ -3,7 +3,7 @@ import { Repository } from "typeorm";
 import { Auction } from "../entities/auction.entity";
 import { User } from "src/user/entities/user.entity";
 import { AddAuctionDTO, GetAuctionByFilter } from "../dto/auction.dto";
-import { ForbiddenException, InternalServerErrorException } from "@nestjs/common";
+import { ForbiddenException, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import DateUtils from "src/utils/date-util";
 
 @CustomRepository(Auction)
@@ -11,15 +11,15 @@ export class AuctionRepository extends Repository<Auction>{
 
     async getAuctionById(auction_id: number):Promise<Auction> {
         return this.createQueryBuilder('auction')
-        .leftJoinAndSelect('auction.item_id','item')
-        .leftJoinAndSelect('auction.user_id','user')
+        .leftJoinAndSelect('auction.item','item')
+        .leftJoinAndSelect('auction.user','user')
         .where('auction.auction_id = :auction_id', { auction_id })
         .getOne();
     }
 
     async getAuctionByIdNotUserJoin(auction_id: number):Promise<Auction> {
         return this.createQueryBuilder('auction')
-        .leftJoinAndSelect('auction.item_id','item')
+        .leftJoinAndSelect('auction.item','item')
         .where('auction.auction_id = :auction_id', { auction_id })
         .getOne();
     }
@@ -28,8 +28,8 @@ export class AuctionRepository extends Repository<Auction>{
         const { search_keyword, item_count, item_price, item_name, min_price, max_price, page } = params;
 
         const query = this.createQueryBuilder('auction')
-            .leftJoinAndSelect('auction.user_id','user')
-            .leftJoinAndSelect('auction.item_id','item');
+            .leftJoinAndSelect('auction.user','user')
+            .leftJoinAndSelect('auction.item','item');
 
         if(search_keyword){
             query.andWhere('item.item_name LIKE :item_name', { item_name: `%${search_keyword}%`});
@@ -82,8 +82,7 @@ export class AuctionRepository extends Repository<Auction>{
     }
     
     async addAuction(addAuctionDTO: AddAuctionDTO, user: User):Promise<Auction> {
-        const { user_id } = user;
-        addAuctionDTO.user_id = user_id;
+        addAuctionDTO.user = user;
         addAuctionDTO.register_date = DateUtils.momentNow();
 
         const new_auction = this.create(addAuctionDTO);
@@ -95,6 +94,14 @@ export class AuctionRepository extends Repository<Auction>{
             throw new InternalServerErrorException();
         }
         
+    }
+
+    async buyItemInAuction(item_count: number,auction_id: number){
+        const auction = await this.getAuctionById(auction_id);
+        auction.item_count -= item_count;
+        await this.update(auction_id,auction);
+        return 'buy success';
+
     }
     
     async cancelAuction(auction_id: number){

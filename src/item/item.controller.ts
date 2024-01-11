@@ -6,7 +6,7 @@ import { AddItemDto } from './dto/add_item.dto';
 import AuthUser from 'src/core/auth-user.decorator';
 import { User } from 'src/user/entities/user.entity';
 import { BuyItemDto } from './dto/buy_item.dto';
-import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { OwnItemType } from './swaggerType/item.swagger';
 
 @ApiTags('아이템 API')
@@ -25,6 +25,7 @@ export class ItemController {
 
     @Patch('/add')
     @UseAuthGuard()
+    @ApiBearerAuth('access-token')
     @ApiOperation({summary: '아이템 추가', description: '아이템 추가'})
     @ApiCreatedResponse({description:'성공하면 결과값 "success"로 갈거임'})
     addItem(
@@ -35,6 +36,7 @@ export class ItemController {
 
     @Patch('/buyItem')
     @UseAuthGuard()
+    @ApiBearerAuth('access-token')
     @ApiOperation({summary: '아이템 구매', description: '아이템 구매'})
     @ApiCreatedResponse({description:'아이템 배열로 갈거임', type: OwnItem})
     buyItem(
@@ -45,6 +47,7 @@ export class ItemController {
 
     @Patch('sellItem')
     @UseAuthGuard()
+    @ApiBearerAuth('access-token')
     @ApiOperation({summary: '아이템 판매', description: '아이템 판매'})
     @ApiCreatedResponse({description:'성공하면 결과값 "success"로 갈거임'})
     sellItem(

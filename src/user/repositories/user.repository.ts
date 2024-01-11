@@ -17,6 +17,16 @@ export class UserRepository extends Repository<User>{
         return user;
     }
 
+    async getUserByID(user_id: number): Promise<User> {
+        const user = await this.findOne({ where : { user_id} });
+
+        if (!user) {
+            throw new NotFoundException(`Cant't found user name by ${user_id}`);
+        }
+
+        return user;
+    }
+
     async getUserByAssetID(asset_id: string): Promise<User> {
         const user = await this.findOne({ where : { asset_id} });
 
@@ -109,7 +119,6 @@ export class UserRepository extends Repository<User>{
         if(cft < use_cft){
             return false;
         }
-        console.log()
         get_user.cft -= use_cft;
         await this.update(user_id,get_user);
         

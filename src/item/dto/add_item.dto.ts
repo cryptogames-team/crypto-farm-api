@@ -11,4 +11,11 @@ export class AddItemDto {
     @IsNumber()
     @IsNotEmpty()
     item_count: number;
+
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty()
+    item_index: number;
+
+
 }

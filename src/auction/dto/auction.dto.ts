@@ -1,6 +1,31 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { Item } from "src/item/entities/item.entity";
+import { User } from "src/user/entities/user.entity";
+import { Auction } from "../entities/auction.entity";
 
+export class BuyAuctionDTO {
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty()
+    auction_id: number;
+
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty()
+    item_count: number;
+
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty()
+    item_index: number;
+}
+export class PurcahseDTO {
+    purchase_count: number; 
+    purchase_date: string;
+    user: User; 
+    auction: Auction;
+}
 export class AddAuctionDTO {
     @ApiProperty()
     @IsNumber()
@@ -19,7 +44,9 @@ export class AddAuctionDTO {
 
     register_date: string;
 
-    user_id: number;
+    user: User;
+
+    item: Item;
 }
 
 export class GetAuctionByFilter {

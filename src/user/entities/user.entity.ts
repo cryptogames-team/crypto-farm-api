@@ -39,9 +39,9 @@ export class User extends BaseEntity {
     @OneToMany(type => OwnItem, cart => cart.user_id, {eager: false})
     own_item: OwnItem[]
 
-    @OneToMany(type => Auction, auction => auction.user_id, {eager: false})
+    @OneToMany(type => Auction, auction => auction.user, {eager: false})
     auction: Auction[]
 
-    @OneToMany(type => Purchase, purchase => purchase.user_id, {eager: false})
+    @OneToMany(type => Purchase, purchase => purchase.user, {eager: false})
     purchase: Purchase[]
 }

@@ -9,5 +9,5 @@ export class OwnItemType {
     item_count: number;
 
     @ApiProperty()
-    item_id: Item;
+    item: Item;
 }

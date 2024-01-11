@@ -8,11 +8,12 @@ import { UserRepository } from 'src/user/repositories/user.repository';
 import { UserModule } from 'src/user/user.module';
 import { ItemModule } from 'src/item/item.module';
 import { OwnItemRepository } from 'src/item/repositories/own_item.repository';
+import { ItemRepository } from 'src/item/repositories/item.repository';
 
 @Module({
   imports: [
     TypeOrmExModule.forCustomRepository([AuctionRepository, PurchaseRepository,
-       UserRepository, OwnItemRepository]),
+       UserRepository, OwnItemRepository,ItemRepository]),
     UserModule,
     ItemModule
   ],
