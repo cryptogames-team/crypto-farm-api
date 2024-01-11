@@ -8,4 +8,8 @@ export class ItemRepository extends Repository<Item>{
         console.log(item_id)
         return await this.findOne({where : {item_id}})
     }
+
+    async getAllItem(): Promise<Item[]> {
+        return await this.find();
+    }
 }

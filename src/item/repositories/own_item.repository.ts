@@ -87,6 +87,14 @@ export class OwnItemRepository extends Repository<OwnItem>{
         }   
     }
 
+    async moveItem(user: User,item: Item, item_index: number){
+        const { user_id } = user;
+        const found = await this.getItemByUserIDANDItemID(user_id,item);
+        found.item_index = item_index;
+        await this.update(found.own_item_id,found);
+        return 'success';
+    }
+
     async useItem(user: User, useItemDto: UseItemDto,item: Item) {
         const { item_id, item_count } = useItemDto;
         const { user_id } = user;

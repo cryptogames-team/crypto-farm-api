@@ -8,6 +8,7 @@ import { User } from 'src/user/entities/user.entity';
 import { BuyItemDto } from './dto/buy_item.dto';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { OwnItemType } from './swaggerType/item.swagger';
+import { Item } from './entities/item.entity';
 
 @ApiTags('아이템 API')
 @Controller('item')
@@ -16,11 +17,18 @@ export class ItemController {
         private itemService: ItemService
     ){}
     
-    @Get('/:user_id')
+    @Get('/own-item/:user_id')
     @ApiOperation({summary: '내 아이템 불러오기', description: '내 아이템 불러오기'})
     @ApiCreatedResponse({description:'아이템 배열로 갈거임', type: [OwnItemType]})
     getMyItems(@Param('user_id') user_id: number): Promise<OwnItem[]> {
         return this.itemService.getMyItems(user_id);
+    }
+
+    @Get('/item/all')
+    @ApiOperation({summary: '모든 아이템 불러오기', description: '모든 아이템 불러오기'})
+    @ApiCreatedResponse({description:'아이템 배열로 갈거임', type: [Item]})
+    getAllItem(){
+        return this.itemService.getAllItem();
     }
 
     @Patch('/add')
@@ -56,7 +64,17 @@ export class ItemController {
             this.itemService.sellItem(user,sellItemDto);
     }
 
-    
+    @Patch('/move/:item_id/:item_index')
+    @UseAuthGuard()
+    @ApiBearerAuth('access-token')
+    @ApiOperation({summary: '아이템 이동', description: '아이템 이동'})
+    @ApiCreatedResponse({description:'성공하면 결과값 "success"로 갈거임'})
+    moveItem(
+        @Param('item_id')item_id: number,
+        @Param('item_index')item_index: number,
+        @AuthUser()user: User){
+            return this.itemService.moveItem(user,item_id,item_index);
+    }
 
     
 }

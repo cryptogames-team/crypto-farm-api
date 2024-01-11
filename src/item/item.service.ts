@@ -6,6 +6,7 @@ import { AddItemDto } from './dto/add_item.dto';
 import { BuyItemDto } from './dto/buy_item.dto';
 import { UserRepository } from 'src/user/repositories/user.repository';
 import { ItemRepository } from './repositories/item.repository';
+import { Item } from './entities/item.entity';
 
 @Injectable()
 export class ItemService {
@@ -45,5 +46,14 @@ export class ItemService {
         }else {
             return 'failed';
         }
+    }
+
+    getAllItem(): Promise<Item[]> {
+        return this.itemRepository.getAllItem();
+    }
+
+    async moveItem(user: User, item_id: number, item_index: number){
+        const item = await this.itemRepository.getItemByID(item_id);
+        return this.ownitemRepository.moveItem(user,item, item_index);
     }
 }
