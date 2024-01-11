@@ -45,6 +45,8 @@ export class AuctionRepository extends Repository<Auction>{
             }
         }
 
+        query.andWhere('auction.item_count != 0');
+
         if(item_count) {
             if(+item_count === 0){
                 query.orderBy('auction.item_count', 'DESC');
