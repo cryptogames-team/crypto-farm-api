@@ -83,7 +83,7 @@ export class AuctionService {
     }
 
     getMySell(user: User,page: number){
-        return this.purchaseRepository.getMySell(user,page);
+        return this.auctionRepository.getMySell(user,page);
     }
 
     getMySellComplete(user: User,page: number){

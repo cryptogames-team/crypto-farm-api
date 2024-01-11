@@ -27,23 +27,7 @@ export class PurchaseRepository extends Repository<Purchase>{
         return {count,result};
     }
 
-    async getMySell(user: User,page: number){
-        const {user_id} = user;
-        const query = this.createQueryBuilder('purchase')
-        .leftJoinAndSelect('purchase.auction','auction')
-        .leftJoinAndSelect('auction.user','seller')
-        .leftJoinAndSelect('purchase.user','buyer')
-        .leftJoinAndSelect('auction.item','item')
-        .andWhere('auction.user_id = :user_id', { user_id })
-        .andWhere('auction.item_count != 0')
-        .orderBy('purchase.purchase_date', 'DESC');
-        const count = await query.getCount();
 
-        const skip = (page-1) * 6;
-        query.skip(skip).take(6);
-        const result = await query.getMany();
-        return {count,result};
-    }
 
     async getMySellComplete(user: User,page: number){
         const {user_id} = user;
@@ -53,7 +37,6 @@ export class PurchaseRepository extends Repository<Purchase>{
         .leftJoinAndSelect('auction.item','item')
         .leftJoinAndSelect('auction.user','seller')
         .andWhere('auction.user_id = :user_id', { user_id })
-        .andWhere('auction.item_count = 0')
         .orderBy('purchase.purchase_date', 'DESC');
         const count = await query.getCount();
 
@@ -72,7 +55,6 @@ export class PurchaseRepository extends Repository<Purchase>{
         .leftJoinAndSelect('auction.user','seller')
         .where('purchase.user_id= :user_id', { user_id })
         .orWhere('auction.user_id = :user_id', { user_id })
-        .andWhere('auction.item_count = 0')
         .orderBy('purchase.purchase_date', 'DESC');
         const count = await query.getCount();
 

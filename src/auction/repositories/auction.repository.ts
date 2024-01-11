@@ -107,4 +107,19 @@ export class AuctionRepository extends Repository<Auction>{
     async cancelAuction(auction_id: number){
         await this.delete({auction_id});
     }
+
+    async getMySell(user: User,page: number){
+        const {user_id} = user;
+        const query = this.createQueryBuilder('auction')
+        .leftJoinAndSelect('auction.user','seller')
+        .leftJoinAndSelect('auction.item','item')
+        .andWhere('auction.user_id = :user_id', { user_id })
+        .orderBy('auction.register_date', 'DESC');
+        const count = await query.getCount();
+
+        const skip = (page-1) * 6;
+        query.skip(skip).take(6);
+        const result = await query.getMany();
+        return {count,result};
+    }
 }
