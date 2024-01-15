@@ -16,4 +16,9 @@ export class BuyItemDto {
     @IsNumber()
     @IsNotEmpty()
     item_price: number;
+
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty()
+    item_index: number;
 }

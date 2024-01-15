@@ -47,7 +47,7 @@ export class UserController {
     @ApiCreatedResponse({description:'성공하면 "exp up"이 결과값으로 갈거임'})
     expUp(
         @Body() expDto: ExpDTO,
-        @AuthUser()user: User): Promise<string> {
+        @AuthUser()user: User): Promise<User> {
         return this.userService.expUp(expDto,user);
     }
 

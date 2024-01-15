@@ -52,13 +52,13 @@ export class OwnItemRepository extends Repository<OwnItem>{
     }
 
     async buyItem(user: User, buyItemDto: BuyItemDto,item: Item): Promise<OwnItem> {
-        const { item_count } = buyItemDto;
+        const { item_count, item_index } = buyItemDto;
         const { user_id } = user;
 
         const found = await this.getItemByUserIDANDItemID(user_id, item);
 
         if (!found) {
-            const new_item = this.create({ item, item_count, user_id });
+            const new_item = this.create({ item, item_count, user_id, item_index });
             await this.save(new_item);
             return new_item;
         } else {

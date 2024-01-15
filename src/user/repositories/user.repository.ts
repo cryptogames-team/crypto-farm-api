@@ -71,7 +71,7 @@ export class UserRepository extends Repository<User>{
         }
     }
 
-    async expUp(expDto: ExpDTO, user: User): Promise<string> {
+    async expUp(expDto: ExpDTO, user: User): Promise<User> {
         const { user_name, user_id } = user;
         const { exp } = expDto;
         const get_user = await this.getUser(user_name);
@@ -96,7 +96,7 @@ export class UserRepository extends Repository<User>{
 
         await this.update(user_id,get_user);
         
-        return 'exp up';
+        return get_user;
     }
 
     async useSkillPoint(use_point: number, user: User): Promise<Boolean> {

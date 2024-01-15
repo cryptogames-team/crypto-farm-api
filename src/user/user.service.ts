@@ -61,7 +61,7 @@ export class UserService {
         return this.userRepository.getUserByAssetID(asset_id);
     }
 
-    expUp(expDto: ExpDTO, user: User ): Promise<string> {
+    expUp(expDto: ExpDTO, user: User ): Promise<User> {
         return this.userRepository.expUp(expDto,user);
     }
 }
