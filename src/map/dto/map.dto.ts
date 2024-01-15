@@ -1,12 +1,14 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export class MapDto {
-  @IsString()
-  name: string;
 
-  @IsString()
-  age: number;
+  
+  asset_id: string;
 
-  @IsString()
-  breed: string;
+  @ApiProperty()
+  objects: [];
+
+  @ApiProperty()
+  crops: [];
 }

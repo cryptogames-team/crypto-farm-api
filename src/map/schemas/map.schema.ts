@@ -5,13 +5,13 @@ export type MapDocument = Map & Document;
 @Schema({versionKey : false})
 export class Map {
     @Prop()
-    name: string;
+    asset_id: string;
 
     @Prop()
-    age: number;
+    objects: [];
 
     @Prop()
-    breed: string;
+    crops: [];
 
 }
 

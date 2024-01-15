@@ -26,8 +26,9 @@ import { AuctionModule } from './auction/auction.module';
       synchronize: true
   }),
   MongooseModule.forRoot('mongodb://43.200.195.138/crypto-farm'),
+  ItemModule,
     UserModule,
-    ItemModule,
+    
     AuctionModule,
     MapModule
   ],

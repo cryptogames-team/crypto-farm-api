@@ -27,11 +27,16 @@ export class OwnItemRepository extends Repository<OwnItem>{
             .getMany();
     }
     
+    async welcomeItem(user: User, item: Item,item_index: number):Promise<void> {
+        const { user_id } = user;
+        const new_item = this.create({ item, item_count : 1, user_id, item_index });
+        await this.save(new_item);
+    }
 
     
     async addItem(user: User, addItemDto: AddItemDto,item: Item): Promise<string> {
         const { user_id } = user;
-        const { item_id, item_count,item_index } = addItemDto;
+        const { item_count,item_index } = addItemDto;
 
         const found = await this.getItemByUserIDANDItemID(user_id, item);
 
@@ -47,7 +52,7 @@ export class OwnItemRepository extends Repository<OwnItem>{
     }
 
     async buyItem(user: User, buyItemDto: BuyItemDto,item: Item): Promise<OwnItem> {
-        const { item_id, item_count } = buyItemDto;
+        const { item_count } = buyItemDto;
         const { user_id } = user;
 
         const found = await this.getItemByUserIDANDItemID(user_id, item);
@@ -64,7 +69,7 @@ export class OwnItemRepository extends Repository<OwnItem>{
     }
 
     async sellItem(user: User, sellItemDto: BuyItemDto,item: Item): Promise<void> {
-        const { item_id, item_count } = sellItemDto;
+        const { item_count } = sellItemDto;
         const { user_id } = user;
 
         const found = await this.getItemByUserIDANDItemID(user_id, item);
@@ -96,7 +101,7 @@ export class OwnItemRepository extends Repository<OwnItem>{
     }
 
     async useItem(user: User, useItemDto: UseItemDto,item: Item) {
-        const { item_id, item_count } = useItemDto;
+        const { item_count } = useItemDto;
         const { user_id } = user;
 
         const found = await this.getItemByUserIDANDItemID(user_id, item);
