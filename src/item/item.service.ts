@@ -7,6 +7,7 @@ import { BuyItemDto } from './dto/buy_item.dto';
 import { UserRepository } from 'src/user/repositories/user.repository';
 import { ItemRepository } from './repositories/item.repository';
 import { Item } from './entities/item.entity';
+import { UseItemDto } from './dto/use_item.dto';
 
 @Injectable()
 export class ItemService {
@@ -50,6 +51,11 @@ export class ItemService {
 
     getAllItem(): Promise<Item[]> {
         return this.itemRepository.getAllItem();
+    }
+
+    async useItem(user: User,useItemDTO: UseItemDto) {
+        const item = await this.itemRepository.getItemByID(useItemDTO.item_id);
+        return this.ownitemRepository.useItem(user,useItemDTO,item);
     }
 
     async moveItem(user: User, item_id: number, item_index: number){

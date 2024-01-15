@@ -9,6 +9,7 @@ import { BuyItemDto } from './dto/buy_item.dto';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { OwnItemType } from './swaggerType/item.swagger';
 import { Item } from './entities/item.entity';
+import { UseItemDto } from './dto/use_item.dto';
 
 @ApiTags('아이템 API')
 @Controller('item')
@@ -40,6 +41,17 @@ export class ItemController {
         @Body(ValidationPipe) addItemDTO: AddItemDto,
         @AuthUser()user: User):Promise<string> {
             return this.itemService.addItem(user,addItemDTO);
+    }
+
+    @Patch('/use')
+    @UseAuthGuard()
+    @ApiBearerAuth('access-token')
+    @ApiOperation({summary: '아이템 사용', description: '아이템 사용'})
+    @ApiCreatedResponse({description:'성공하면 결과값 "use success"로 갈거임'})
+    useItem(
+        @Body(ValidationPipe) useItemDTO: UseItemDto,
+        @AuthUser()user: User):Promise<string> {
+            return this.itemService.useItem(user,useItemDTO);
     }
 
     @Patch('/buyItem')

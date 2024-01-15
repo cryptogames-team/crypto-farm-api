@@ -25,11 +25,11 @@ import { AuctionModule } from './auction/auction.module';
       entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: true
   }),
-  // MongooseModule.forRoot('mongodb://221.148.25.234/nest'),
+  MongooseModule.forRoot('mongodb://43.200.195.138/crypto-farm'),
     UserModule,
     ItemModule,
     AuctionModule,
-    // MapModule
+    MapModule
   ],
 })
 export class AppModule {}

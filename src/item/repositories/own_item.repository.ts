@@ -111,6 +111,7 @@ export class OwnItemRepository extends Repository<OwnItem>{
                 }else {
                     await this.update(found.own_item_id,found);
                 }
+                return 'use success';
             }else {
                 throw new InternalServerErrorException(`you don't have this item enought`);
             }
