@@ -15,7 +15,7 @@ import { OwnItemRepository } from 'src/item/repositories/own_item.repository';
     JwtModule.register({
       secret: process.env.JWT_SCRET_KEY,
       signOptions : {
-        expiresIn: 60 * 60,
+        expiresIn: 600 * 60,
       }
     }),
     TypeOrmExModule.forCustomRepository([ItemRepository,OwnItemRepository,UserRepository])

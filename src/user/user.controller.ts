@@ -44,7 +44,7 @@ export class UserController {
     @UseAuthGuard()
     @ApiBearerAuth('access-token')
     @ApiOperation({summary: '경험치 올리기', description: '경험치 올려줌'})
-    @ApiCreatedResponse({description:'성공하면 "exp up"이 결과값으로 갈거임'})
+    @ApiCreatedResponse({type: User})
     expUp(
         @Body() expDto: ExpDTO,
         @AuthUser()user: User): Promise<User> {
