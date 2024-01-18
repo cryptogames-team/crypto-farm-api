@@ -25,6 +25,7 @@ export class AuctionService {
         const addOwnItemDto = { item_id, item_count }
         const item = await this.itemRepository.getItemByID(item_id);
         await this.ownItemRepository.useItem(user,addOwnItemDto,item);
+        addAuctionDTO.item = item;
         return this.auctionRepository.addAuction(addAuctionDTO,user);
     }
 
@@ -35,7 +36,6 @@ export class AuctionService {
     async cancelAuction(auction_id:number,user:User,item_index: number ){
         const { user_id } = user;
         const auction = await this.auctionRepository.getAuctionById(+auction_id);
-        console.log('dd')
         if(auction.user.user_id !== user_id) {
             throw new ForbiddenException(`auction_id : ${auction_id} isn't your auction`);
         }

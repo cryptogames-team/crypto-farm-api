@@ -84,7 +84,7 @@ export class AuctionController {
         return this.auctionService.getMySellComplete(user,page)
     }
 
-    @Delete('/:auction_id')
+    @Delete('/:auction_id/:item_index')
     @UseAuthGuard()
     @ApiBearerAuth('access-token')
     @ApiOperation({summary: '경매장 취소', description: 'body에 item_index: 값 넣어주기'})
@@ -92,7 +92,7 @@ export class AuctionController {
     cancelAuction(
         @AuthUser()user: User,
         @Param('auction_id')auction_id: number,
-        @Body('item_index')item_index: number
+        @Param('item_index')item_index: number
     ){
         return this.auctionService.cancelAuction(auction_id,user,item_index);
     }
