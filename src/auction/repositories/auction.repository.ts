@@ -21,6 +21,7 @@ export class AuctionRepository extends Repository<Auction>{
         return this.createQueryBuilder('auction')
         .leftJoinAndSelect('auction.item','item')
         .where('auction.auction_id = :auction_id', { auction_id })
+        .andWhere('auction.is_sale = 1')
         .getOne();
     }
 
@@ -29,7 +30,8 @@ export class AuctionRepository extends Repository<Auction>{
 
         const query = this.createQueryBuilder('auction')
             .leftJoinAndSelect('auction.user','user')
-            .leftJoinAndSelect('auction.item','item');
+            .leftJoinAndSelect('auction.item','item')
+            .andWhere('auction.is_sale = 1');
 
         if(search_keyword){
             query.andWhere('item.item_name LIKE :item_name', { item_name: `%${search_keyword}%`});
@@ -86,7 +88,7 @@ export class AuctionRepository extends Repository<Auction>{
     async addAuction(addAuctionDTO: AddAuctionDTO, user: User):Promise<Auction> {
         addAuctionDTO.user = user;
         addAuctionDTO.register_date = DateUtils.momentNow();
-
+        addAuctionDTO.is_sale = 1;
         const new_auction = this.create(addAuctionDTO);
         try{
             await this.save(new_auction);
@@ -101,13 +103,20 @@ export class AuctionRepository extends Repository<Auction>{
     async buyItemInAuction(item_count: number,auction_id: number){
         const auction = await this.getAuctionById(auction_id);
         auction.item_count -= item_count;
+        if(auction.item_count === 0){
+            auction.is_sale = 0;
+        }
         await this.update(auction_id,auction);
         return 'buy success';
 
     }
     
     async cancelAuction(auction_id: number){
-        await this.delete({auction_id});
+        const auction = await this.getAuctionById(auction_id);
+        auction.item_count = 0;
+        auction.is_sale = 0;
+        await this.update(auction_id,auction);
+        return 'cancel success';
     }
 
     async getMySell(user: User,page: number){
@@ -116,11 +125,13 @@ export class AuctionRepository extends Repository<Auction>{
         .leftJoinAndSelect('auction.user','seller')
         .leftJoinAndSelect('auction.item','item')
         .andWhere('auction.user_id = :user_id', { user_id })
+        .andWhere('auction.item_count != 0')
+        .andWhere('auction.is_sale = 1')
         .orderBy('auction.register_date', 'DESC');
         const count = await query.getCount();
 
-        const skip = (page-1) * 6;
-        query.skip(skip).take(6);
+        const skip = (page-1) * 9;
+        query.skip(skip).take(9);
         const result = await query.getMany();
         return {count,result};
     }

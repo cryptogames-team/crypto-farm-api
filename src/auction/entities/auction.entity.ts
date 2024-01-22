@@ -22,6 +22,10 @@ export class Auction extends BaseEntity {
     @Column()
     register_date: string;
 
+    @ApiProperty()
+    @Column()
+    is_sale: number;
+
     @ApiProperty({type : ()=> User})
     @ManyToOne(() => User, user => user.auction, { eager: true })
     @JoinColumn({ name: "user_id" })

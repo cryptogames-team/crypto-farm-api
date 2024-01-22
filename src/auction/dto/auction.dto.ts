@@ -47,6 +47,8 @@ export class AddAuctionDTO {
     user: User;
 
     item: Item;
+
+    is_sale: number;
 }
 
 export class GetAuctionByFilter {
