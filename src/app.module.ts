@@ -7,6 +7,7 @@ import { ItemModule } from './item/item.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MapModule } from './map/map.module';
 import { AuctionModule } from './auction/auction.module';
+import { MetaverseModule } from './metaverse/metaverse.module';
 
 
 @Module({
@@ -30,7 +31,8 @@ import { AuctionModule } from './auction/auction.module';
     UserModule,
     
     AuctionModule,
-    MapModule
+    MapModule,
+    MetaverseModule
   ],
 })
 export class AppModule {}
