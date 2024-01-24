@@ -7,7 +7,6 @@ export class MetaverseGateway implements OnGatewayConnection, OnGatewayDisconnec
   @WebSocketServer()
   server: Server;
 
-  constructor(private room: string){this.room = 'metaverse'}
   users: { [user_name: string]: {}} = {}
 
   handleConnection(client: Socket): void {
@@ -21,12 +20,12 @@ export class MetaverseGateway implements OnGatewayConnection, OnGatewayDisconnec
   @SubscribeMessage('join')
   join(client: Socket,user_name: string,position: {}): void {
       this.users[user_name] = position;
-      client.join(this.room);
+      client.join('metaverse');
   }
 
   @SubscribeMessage('exit')
   exit(client: Socket,user_name: string): void {
-      client.leave(this.room);
+      client.leave('metaverse');
       delete this.users[user_name];
   }
 }
