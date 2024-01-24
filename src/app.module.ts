@@ -8,10 +8,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MapModule } from './map/map.module';
 import { AuctionModule } from './auction/auction.module';
 import { MetaverseModule } from './metaverse/metaverse.module';
+import { RedisModule } from '@liaoliaots/nestjs-redis';
+import { RedisConfig } from './configs/redis.config';
 
 
 @Module({
   imports: [
+    RedisModule.forRoot({
+      readyLog: true,
+      config: RedisConfig
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
