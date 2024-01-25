@@ -1,0 +1,43 @@
+name: deploy
+
+on:
+    push:
+        branches: 
+            - "main"
+jobs:
+    checkout:
+        runs-on: [self-hosted]
+        steps:
+            - name: 🛒 Checkout
+              uses: actions/checkout@v2
+
+    build:
+        needs: checkout
+        if: github.ref == 'refs/heads/main'
+        runs-on: [self-hosted]
+        
+        steps:
+          - name: Install dependencies
+            run: npm install
+
+          - name: build dependencies
+            run: npm run build  
+              
+          - name: create env file
+            run: |
+                touch ./dist/.env
+                    echo DB_HOST = '43.200.195.138' >> ./dist/.env
+                    echo DB_PORT = 3306 >> ./dist/.env
+                    echo DB_USERNAME = 'crypto-data' >> ./dist/.env
+                    echo DB_PASSWD = '1207' >> ./dist/.env
+                    echo DB_DATABASE = 'crypto_farm' >> ./dist/.env
+                    echo JWT_SCRET_KEY = 'cryptofarm' >> ./dist/.env
+                    echo REDIS_PORT = 6379 >> ./dist/.env
+
+                    
+          - name: Copy new server to html folder
+            run: |
+                cp -R ./ /var/www/html/crypto-farm-api
+
+          - name: pm2 restart
+            run: pm2 restart farm-api 
