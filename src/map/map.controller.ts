@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, ValidationPipe } from '@nestjs/common';
 import { MapService } from './map.service';
 import { MapDto } from './dto/map.dto';
 import { Map } from './schemas/map.schema';
@@ -20,7 +20,7 @@ export class MapController {
     @ApiCreatedResponse({description:'맵 정보가 걸거임'})
     @UseAuthGuard()
     Create(
-        @Body()mapDto: MapDto,
+        @Body(ValidationPipe)mapDto: MapDto,
         @AuthUser()user: User) {
         return this.mapService.Create(mapDto,user);
     }
