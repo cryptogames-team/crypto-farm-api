@@ -6,16 +6,13 @@ export type MapDocument = Map & Document;
 @Schema({versionKey : false})
 export class Map {
 
-    @IsNotEmpty()
-    @IsString()
     @Prop()
     asset_id: string;
 
-    @IsArray()
     @Prop()
     objects: [];
 
-    @IsArray()
+
     @Prop()
     crops: [];
 
