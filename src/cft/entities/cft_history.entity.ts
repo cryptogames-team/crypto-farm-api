@@ -17,7 +17,7 @@ export class CFTHistory extends BaseEntity {
 
     @ApiProperty()
     @ManyToOne(() => CFTAuction, cft_auction => cft_auction.cft_history, { eager: false })
-    @JoinColumn({ name: "user_id" })
+    @JoinColumn({ name: "cft_auction_id" })
     cft_auction: CFTAuction;
 
     @ApiProperty()
