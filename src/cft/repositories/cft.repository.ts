@@ -60,7 +60,7 @@ export class CFTAuctionRepository extends Repository<CFTAuction>{
         const query = this.createQueryBuilder('cft_auction')
             .leftJoinAndSelect('cft_auction.user','user')
             .andWhere('cft_auction.is_sale = 1')
-            .andWhere('cft_auction.item_count != 0');
+            .andWhere('cft_auction.cft != 0');
 
         if(cft_count) {
             if(+cft_count === 0){
