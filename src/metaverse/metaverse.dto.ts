@@ -6,4 +6,6 @@ export class MetaverseDTO {
     x: number;
 
     y: number;
+
+    is_left: number;
 }
