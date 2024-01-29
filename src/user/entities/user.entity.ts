@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Auction } from "src/auction/entities/auction.entity";
 import { Purchase } from "src/auction/entities/purchase.entity";
+import { CFTAuction } from "src/cft/entities/cft.entity";
+import { CFTHistory } from "src/cft/entities/cft_history.entity";
 import { OwnItem } from "src/item/entities/own_item.entity";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
@@ -44,4 +46,10 @@ export class User extends BaseEntity {
 
     @OneToMany(type => Purchase, purchase => purchase.user, {eager: false})
     purchase: Purchase[]
+
+    @OneToMany(type => CFTAuction, cft_auction => cft_auction.user, {eager: false})
+    cft_auction: CFTAuction[]
+
+    @OneToMany(type => CFTHistory, cft_history => cft_history.user, {eager: false})
+    cft_history: CFTHistory[]
 }
