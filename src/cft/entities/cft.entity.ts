@@ -26,7 +26,7 @@ export class CFTAuction extends BaseEntity {
     @Column()
     is_sale: number;
 
-    @ApiProperty()
+    @ApiProperty({type : ()=> User})
     @ManyToOne(() => User, user => user.cft_auction, { eager: false })
     @JoinColumn({ name: "user_id" })
     user: User;

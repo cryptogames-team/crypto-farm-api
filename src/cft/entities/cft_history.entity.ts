@@ -10,12 +10,12 @@ export class CFTHistory extends BaseEntity {
     @PrimaryGeneratedColumn()
     cft_history_id: number;
 
-    @ApiProperty()
+    @ApiProperty({type : ()=> User})
     @ManyToOne(() => User, user => user.cft_history, { eager: false })
     @JoinColumn({ name: "user_id" })
     user: User;
 
-    @ApiProperty()
+    @ApiProperty({type : ()=> CFTAuction})
     @ManyToOne(() => CFTAuction, cft_auction => cft_auction.cft_history, { eager: false })
     @JoinColumn({ name: "cft_auction_id" })
     cft_auction: CFTAuction;
