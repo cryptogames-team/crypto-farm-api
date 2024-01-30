@@ -23,7 +23,7 @@ export class CftService {
         if(addCftAuctionDTO.cft > my_cft){
             throw new ForbiddenException('Not enought your cft');
         }
-
+        await this.userRepository.useCFT(addCftAuctionDTO.price,user);
         return this.cftAuctionRepository.addAuction(addCftAuctionDTO,user);
     }
 
