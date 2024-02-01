@@ -16,7 +16,7 @@ export class MapService {
     ){}
     async Create(mapDto: MapDto,user: User){
         const { asset_id } = user;
-        const { objects, crops } = mapDto;
+        const { objects, crops, trees, rocks, buildings } = mapDto;
         const checkData = await this.findDataByID(asset_id);
         console.log(checkData)
         if(!checkData){
@@ -27,6 +27,9 @@ export class MapService {
         }
         checkData.objects = objects;
         checkData.crops = crops;
+        checkData.trees =trees;
+        checkData.rocks = rocks;
+        checkData.buildings = buildings;
         await checkData.save();
         return checkData;
     }

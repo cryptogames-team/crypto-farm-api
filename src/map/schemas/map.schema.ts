@@ -16,6 +16,15 @@ export class Map {
     @Prop()
     crops: [];
 
+    @Prop()
+    trees: [];
+
+    @Prop()
+    rocks: [];
+
+    @Prop()
+    buildings: [];
+
 }
 
 export const MapSchema = SchemaFactory.createForClass(Map);
