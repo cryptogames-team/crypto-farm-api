@@ -15,4 +15,19 @@ export class MapDto {
   @IsArray()
   @ApiProperty()
   crops: [];
+
+  @IsNotEmpty()
+  @IsArray()
+  @ApiProperty()
+  trees: [];
+
+  @IsNotEmpty()
+  @IsArray()
+  @ApiProperty()
+  rocks: [];
+
+  @IsNotEmpty()
+  @IsArray()
+  @ApiProperty()
+  buildings: [];
 }
