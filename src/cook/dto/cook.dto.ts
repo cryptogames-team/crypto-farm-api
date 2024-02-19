@@ -1,24 +1,24 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmpty, IsNumber } from "class-validator";
+import { IsEmpty, IsNotEmpty, IsNumber } from "class-validator";
 
 export class cookDto {
 
-    @IsEmpty()
+    @IsNotEmpty()
     @IsNumber()
     @ApiProperty()
     cook: number;
 
-    @IsEmpty()
+    @IsNotEmpty()
     @IsNumber()
     @ApiProperty()
     ingredient1: number;
 
-    @IsEmpty()
+    @IsNotEmpty()
     @IsNumber()
     @ApiProperty()
     ingredient2: number;
 
-    @IsEmpty()
+    @IsNotEmpty()
     @IsNumber()
     @ApiProperty()
     item_index: number;
