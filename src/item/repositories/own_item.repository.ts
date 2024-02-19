@@ -44,11 +44,12 @@ export class OwnItemRepository extends Repository<OwnItem>{
             const new_item = this.create({ item, item_count, user_id, item_index });
             await this.save(new_item);
             return 'success';
-        } else {
-            found.item_count += item_count;
-            await this.update(found.own_item_id,found);
-            return 'success';
         }
+           
+        found.item_count += item_count;
+        await this.update(found.own_item_id,found);
+        return 'success';
+        
     }
 
     async buyItem(user: User, buyItemDto: BuyItemDto,item: Item): Promise<OwnItem> {
@@ -61,11 +62,12 @@ export class OwnItemRepository extends Repository<OwnItem>{
             const new_item = this.create({ item, item_count, user_id, item_index });
             await this.save(new_item);
             return new_item;
-        } else {
-            found.item_count += item_count;
-            await this.update(found.own_item_id,found);
-            return found;
-        }   
+        }
+
+        found.item_count += item_count;
+        await this.update(found.own_item_id,found);
+        return found;
+        
     }
 
     async sellItem(user: User, sellItemDto: BuyItemDto,item: Item): Promise<void> {
@@ -76,20 +78,20 @@ export class OwnItemRepository extends Repository<OwnItem>{
 
         if (!found) {
             throw new InternalServerErrorException(`you don't have this item`);
-        } else {
-            if(found.item_count >= item_count){
-                found.item_count -= item_count;
-                if(found.item_count <= 0){
-                    await this.delete(found.own_item_id);
-                }else {
-                    await this.update(found.own_item_id,found);
-                }
-                
+        }
+
+        if(found.item_count >= item_count){
+            found.item_count -= item_count;
+            if(found.item_count <= 0){
+                await this.delete(found.own_item_id);
             }else {
-                throw new InternalServerErrorException(`you don't have this item enought`);
+                await this.update(found.own_item_id,found);
             }
-            
-        }   
+                
+        }else {
+            throw new InternalServerErrorException(`you don't have this item enought`);
+        }
+        
     }
 
     async moveItem(user: User,item: Item, item_index: number){

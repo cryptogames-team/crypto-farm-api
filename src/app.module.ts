@@ -11,6 +11,7 @@ import { MetaverseModule } from './metaverse/metaverse.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { RedisConfig } from './configs/redis.config';
 import { CftModule } from './cft/cft.module';
+import { CookModule } from './cook/cook.module';
 
 
 @Module({
@@ -40,7 +41,8 @@ import { CftModule } from './cft/cft.module';
     AuctionModule,
     MapModule,
     MetaverseModule,
-    CftModule
+    CftModule,
+    CookModule
   ],
 })
 export class AppModule {}
