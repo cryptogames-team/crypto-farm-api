@@ -20,8 +20,8 @@ export class CookService {
         const { cook, ingredient1, ingredient2, item_index } = cookDto;
         const ingredient1_item = await this.itemRepository.getItemByID(ingredient1);
         const ingredient2_item = await this.itemRepository.getItemByID(ingredient2);
-        const found1 = this.ownItemRepository.getItemByUserIDANDItemID(user.user_id,ingredient1_item);
-        const found2 = this.ownItemRepository.getItemByUserIDANDItemID(user.user_id,ingredient2_item);
+        const found1 = await this.ownItemRepository.getItemByUserIDANDItemID(user.user_id,ingredient1_item);
+        const found2 = await this.ownItemRepository.getItemByUserIDANDItemID(user.user_id,ingredient2_item);
         if(!found1 || !found2){
             throw new NotFoundException('재료 부족')
         }
