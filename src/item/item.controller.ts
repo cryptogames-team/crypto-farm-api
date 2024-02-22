@@ -73,7 +73,7 @@ export class ItemController {
     sellItem(
         @Body(ValidationPipe) sellItemDto: BuyItemDto,
         @AuthUser()user: User){
-            this.itemService.sellItem(user,sellItemDto);
+            return this.itemService.sellItem(user,sellItemDto);
     }
 
     @Patch('/move/:item_id/:item_index')
