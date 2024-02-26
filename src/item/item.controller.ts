@@ -28,7 +28,7 @@ export class ItemController {
     @Get('/item/all')
     @ApiOperation({summary: '모든 아이템 불러오기', description: '모든 아이템 불러오기'})
     @ApiCreatedResponse({description:'아이템 배열로 갈거임', type: [Item]})
-    getAllItem(){
+    getAllItem(): Promise<Item[]> {
         return this.itemService.getAllItem();
     }
 

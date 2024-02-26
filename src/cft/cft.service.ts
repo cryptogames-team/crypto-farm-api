@@ -19,11 +19,12 @@ export class CftService {
 
     async create(user: User, addCftAuctionDTO: AddCftAuctionDTO): Promise<CFTAuction> {
         const my_cft = user.cft;
+        const upload_cft = addCftAuctionDTO.cft;
 
         if(addCftAuctionDTO.cft > my_cft){
             throw new ForbiddenException('Not enought your cft');
         }
-        await this.userRepository.useCFT(addCftAuctionDTO.price,user);
+        await this.userRepository.useCFT(upload_cft,user);
         return this.cftAuctionRepository.addAuction(addCftAuctionDTO,user);
     }
 
@@ -52,9 +53,8 @@ export class CftService {
         if(auction.cft < cft){
             throw new ForbiddenException(`auction cft is not enought`);
         }
-        const total_price = auction.price * cft;
         
-        await this.userRepository.getCFT(total_price,auction.user);
+        await this.userRepository.getCFT(cft,auction.user);
         const addHistoryDTO = {
             cft,
             cft_auction: auction,
