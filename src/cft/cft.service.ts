@@ -53,8 +53,8 @@ export class CftService {
         if(auction.cft < cft){
             throw new ForbiddenException(`auction cft is not enought`);
         }
-        
-        await this.userRepository.getCFT(cft,auction.user);
+        await this.cftAuctionRepository.buyCftInAuction(cft,cft_auction_id);
+        await this.userRepository.getCFT(cft,user);
         const addHistoryDTO = {
             cft,
             cft_auction: auction,
