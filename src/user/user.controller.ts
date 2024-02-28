@@ -25,6 +25,15 @@ export class UserController {
     login(@Body(ValidationPipe) userDto: UserDto): Promise<{accessToken: string}> {
         return this.userService.login(userDto);
     }
+
+    @Post('/check')
+    @ApiOperation({summary: 'accessToken 확인', description: '헤더에 access토큰 담을 것'})
+    @ApiCreatedResponse({description:'유저 정보 보내줌', type: User})
+    @ApiBearerAuth('access-token')
+    @UseAuthGuard()
+    check(@AuthUser()user: User){
+        return user;
+    }
     
     @Get('/:asset_id')
     @ApiOperation({summary: '유저 정보 불러오기', description: '유저 정보 불러오기'})
