@@ -25,7 +25,11 @@ export class CookService {
         if(!found1 || !found2){
             throw new NotFoundException('재료 부족')
         }
-        
+        if(ingredient1 === ingredient2){
+            if(found1.item_count < 2){
+                throw new NotFoundException('재료 부족')
+            }
+        }
         const cook_item = await this.itemRepository.getItemByID(cook);
         const useItemDto1 = {item_id : ingredient1, item_count : 1};
         const useItemDto2 = {item_id : ingredient2, item_count : 1};
