@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { CftService } from './cft.service';
 import UseAuthGuard from 'src/user/auth-guards/user-auth';
 import { AddCftAuctionDTO, BuyCFTDTO, GetCFTAuctionByFilter } from './dto/cft.dto';
@@ -104,7 +104,7 @@ export class CftController {
     @ApiOperation({summary: 'CFT 구매', description: 'CFT 구매'})
     @ApiCreatedResponse({description:'성공하면 cancel success 보낼거임',schema: {example: 'buy success'}})
     buyItemInAuction(
-        @Body()buyCFTDTO: BuyCFTDTO,
+        @Body(ValidationPipe)buyCFTDTO: BuyCFTDTO,
         @AuthUser()user: User
     ){
         return this.cftService.buyCftInAuction(buyCFTDTO,user);

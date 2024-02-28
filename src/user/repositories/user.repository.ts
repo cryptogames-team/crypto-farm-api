@@ -36,12 +36,23 @@ export class UserRepository extends Repository<User>{
 
         return user;
     }
+    async getUserByAssetIDForAll(asset_id: string): Promise<User> {
+        const user = await this.findOne({ where : { asset_id} });
 
+        if (!user) {
+            return null;
+        }
+
+        return user;
+    }
     async getAllUserByAssetID(asset_id: string[]):Promise<User[]> {
         let users = [];
         for (const id of asset_id) {
-            const user = await this.getUserByAssetID(id);
-            users.push(user);
+            const user = await this.getUserByAssetIDForAll(id);
+            if(user !== null){
+                users.push(user);
+            }
+            
         }
 
         return users;
